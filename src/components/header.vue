@@ -9,8 +9,9 @@
         <b-navbar-nav>
           <b-nav-item
             v-for="categorie in categories"
-            :key="categorie"
+            :key="categorie.id"
             href="#"
+            @click="onClick"
             >{{ categorie }}</b-nav-item
           >
         </b-navbar-nav>
@@ -23,15 +24,26 @@
 </template>
 
 <script>
+import { categoriesHTTP } from "../axios/plagins";
 export default {
   name: "Header",
   data: () => ({
     categories: [],
+    value: "",
   }),
   created() {
-    fetch("https://fakestoreapi.com/products/categories")
-      .then((res) => res.json())
-      .then((json) => (this.categories = json));
+    categoriesHTTP.get()
+      .then((response) =>console.log(this.categories = response.data))
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    onClick: function(e) {
+      this.value += e.target.innerText;
+      console.log(this.value);
+      this.value = "";
+    },
   },
 };
 </script>
