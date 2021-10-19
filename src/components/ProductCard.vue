@@ -1,8 +1,8 @@
 <template>
-  <div class='container'>
+  <div class="container">
     <b-card-group columns>
       <b-card
-        v-for="product in products"
+        v-for="product in filtredProducts"
         :key="product.id"
         :img-src="`${product.image}`"
         img-alt="Image"
@@ -11,7 +11,7 @@
         <b-card-text class="small text-muted">
           ${{ product.price }}</b-card-text
         >
-        <b-card-text >
+        <b-card-text>
           <h4>{{ product.title }}</h4>
         </b-card-text>
         <b-card-text>
@@ -23,19 +23,15 @@
 </template>
 
 <script>
-import { productsHTTP } from "../axios/plagins";
 export default {
   name: "ProductCard",
-  data: () => ({
-    products: [],
-  }),
-  created() {
-    productsHTTP
-      .get()
-      .then((response) => console.log((this.products = response.data)))
-      .catch((error) => {
-        console.log(error);
-      });
+  props: {
+    filtredProducts: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
   },
 };
 </script>
@@ -47,7 +43,8 @@ img {
   padding-left: 50px;
   padding-right: 50px;
 }
-.container{
-  margin:auto;
+.container {
+  margin-top: 100px;
+  margin: auto;
 }
 </style>
