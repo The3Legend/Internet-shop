@@ -71,7 +71,6 @@ export default {
     },
     showClickId(card) {
       this.ItemInCart.push(card);
-      console.log(this.ItemInCart);
     },
   },
   computed: {
