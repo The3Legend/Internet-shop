@@ -12,11 +12,17 @@
           ${{ product.price }}</b-card-text
         >
         <b-card-text>
-          <h4>{{ product.title }}</h4>
+          <h5>{{ product.title }}</h5>
         </b-card-text>
-        <b-card-text>
+        <b-card-text class="overflow">
           {{ product.description }}
         </b-card-text>
+        <div>
+          <b-button class="width" variant="outline-primary">Подробнее</b-button>
+          <b-button class="width" variant="success" @click="sendIdToParent(product)"
+            >В корзину</b-button
+          >
+        </div>
       </b-card>
     </b-card-group>
   </div>
@@ -33,6 +39,22 @@ export default {
       },
     },
   },
+  data: () => ({
+    truncateSortProduct: [],
+  }),
+  updated() {
+    this.truncateSortProduct = this.filtredProducts;
+    this.truncateSortProduct.map((el) => {
+      el.description.length > 185
+        ? (el.description = el.description.slice(0, 185 - 1) + "…")
+        : el.description;
+    });
+  },
+  methods: {
+    sendIdToParent(product) {
+        this.$emit("sendId", product);
+    },
+  },
 };
 </script>
 
@@ -46,5 +68,8 @@ img {
 .container {
   margin-top: 100px;
   margin: auto;
+}
+.width {
+  width: 155px;
 }
 </style>
