@@ -50,7 +50,7 @@
                   <div class="w-100">
                     <div class="float-right font-style">
                       <span>Total price:</span>
-                      <span> {{ allPrice }}$</span>
+                      <span> {{ allPrice.toFixed(2) }}$</span>
                     </div>
                   </div>
                 </template>
