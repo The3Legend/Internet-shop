@@ -19,7 +19,7 @@
         </b-card-text>
         <div>
           <b-button class="width" variant="outline-primary">Подробнее</b-button>
-          <b-button class="width" variant="success" @click="sendIdToParent(product)"
+          <b-button class="width" variant="outline-success" @click="sendIdToParent(product)"
             >В корзину</b-button
           >
         </div>

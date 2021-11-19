@@ -2,9 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="light" variant="light ">
       <b-navbar-brand href="#" @click="onClick">Meclee Test</b-navbar-brand>
-
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
       <b-collapse id="nav-collapse" is-nav>
         <div class="flex">
           <div>
@@ -22,7 +20,7 @@
             <b-button
               @click="modalShow = !modalShow"
               size="md"
-              variant="secondary "
+              variant="outline-primary "
               class="mb-2"
             >
               <b-icon icon="cart3" aria-label="Pay"></b-icon>
@@ -41,7 +39,7 @@
                     <small>{{ card.title }}</small>
                   </div>
                   <div class="child">
-                    <b-button class="button-style" variant="danger">
+                    <b-button class="button-style" variant="outline-danger" @click="productRemove(index)">
                       <b-icon icon="trash-fill" aria-hidden="true"> </b-icon>
                     </b-button>
                   </div>
@@ -106,7 +104,11 @@ export default {
     },
     showClickId(card) {
       this.ItemInCart.push(card);
+      console.log(this.ItemInCart);
     },
+    productRemove(index){
+      this.ItemInCart.splice(index,1)
+    }
   },
   computed: {
     filtredProducts() {
