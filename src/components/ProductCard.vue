@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-card-group columns>
-      <b-card
+      <b-card class="lol"
         v-for="product in filtredProducts"
         :key="product.id"
         :img-src="`${product.image}`"
@@ -59,8 +59,8 @@ export default {
 </script>
 
 <style>
-img {
-  width: 100px;
+.lol img {
+  width: 350px;
   height: 290px;
   padding-left: 50px;
   padding-right: 50px;

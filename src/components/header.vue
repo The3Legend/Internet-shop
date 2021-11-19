@@ -19,8 +19,42 @@
             </b-navbar-nav>
           </div>
           <div>
-            <b-button size="md" variant="secondary " class="mb-2">
+            <b-button
+              @click="modalShow = !modalShow"
+              size="md"
+              variant="secondary "
+              class="mb-2"
+            >
               <b-icon icon="cart3" aria-label="Pay"></b-icon>
+              <span class="margin-style" v-if="ItemInCart.length">{{
+                ItemInCart.length
+              }}</span>
+              <b-modal v-model="modalShow" title="Using Component Methods">
+                <div
+                  class="parent"
+                  v-for="(card, index) in ItemInCart"
+                  :key="index"
+                >
+                  <div class="children">
+                    <small>{{ index + 1 }}. </small>
+                    <img class="imgStyle" :src="`${card.image}`" alt="img" />
+                    <small>{{ card.title }}</small>
+                  </div>
+                  <div class="child">
+                    <b-button class="button-style" variant="danger">
+                      <b-icon icon="trash-fill" aria-hidden="true"> </b-icon>
+                    </b-button>
+                  </div>
+                </div>
+                <template #modal-footer>
+                  <div class="w-100">
+                    <div class="float-right font-style">
+                      <span>Total price:</span>
+                      <span> {{ allPrice }}$</span>
+                    </div>
+                  </div>
+                </template>
+              </b-modal>
             </b-button>
           </div>
         </div>
@@ -45,6 +79,7 @@ export default {
     allProducts: [],
     sortProduct: [],
     ItemInCart: [],
+    modalShow: false,
   }),
   created() {
     HTTP.get()
@@ -59,7 +94,7 @@ export default {
       });
   },
   methods: {
-    onClick: function(e) {
+    onClick: function (e) {
       this.value = [];
       this.sortProduct = [];
       this.value.push(e.target.innerText);
@@ -79,6 +114,11 @@ export default {
         return this.sortProduct;
       } else return this.allProducts;
     },
+    allPrice() {
+      return this.ItemInCart.reduce((acc, el) => {
+        return (acc += el.price);
+      }, 0);
+    },
   },
 };
 </script>
@@ -94,5 +134,21 @@ export default {
   .flex {
     display: block;
   }
+}
+.imgStyle {
+  width: 32px;
+  padding-right: 5px;
+}
+.margin-style {
+  margin-left: 5px;
+  font-size: 18px;
+}
+.parent {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.font-style {
+  font-weight: bold;
 }
 </style>
