@@ -27,7 +27,7 @@
               <span class="margin-style" v-if="ItemInCart.length">{{
                 ItemInCart.length
               }}</span>
-              <b-modal v-model="modalShow" title="Using Component Methods">
+              <b-modal v-model="modalShow" title="Goods in the basket">
                 <div
                   class="parent"
                   v-for="(card, index) in ItemInCart"
@@ -39,7 +39,11 @@
                     <small>{{ card.title }}</small>
                   </div>
                   <div class="child">
-                    <b-button class="button-style" variant="outline-danger" @click="productRemove(index)">
+                    <b-button
+                      class="button-style"
+                      variant="outline-danger"
+                      @click="productRemove(index)"
+                    >
                       <b-icon icon="trash-fill" aria-hidden="true"> </b-icon>
                     </b-button>
                   </div>
@@ -104,11 +108,11 @@ export default {
     },
     showClickId(card) {
       this.ItemInCart.push(card);
-      console.log(this.ItemInCart);
+      console.log(this.filtredProducts)
     },
-    productRemove(index){
-      this.ItemInCart.splice(index,1)
-    }
+    productRemove(index) {
+      this.ItemInCart.splice(index, 1);
+    },
   },
   computed: {
     filtredProducts() {

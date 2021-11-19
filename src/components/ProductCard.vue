@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <b-card-group columns>
-      <b-card class="lol"
+      <b-card
+        class="lol"
         v-for="product in filtredProducts"
         :key="product.id"
         :img-src="`${product.image}`"
@@ -18,8 +19,16 @@
           {{ product.description }}
         </b-card-text>
         <div>
-          <b-button class="width" variant="outline-primary">Подробнее</b-button>
-          <b-button class="width" variant="outline-success" @click="sendIdToParent(product)"
+          <b-button
+            class="width"
+            variant="outline-primary"
+            @click="detailedInformation(product.id)"
+            >Подробнее</b-button
+          >
+          <b-button
+            class="width"
+            variant="outline-success"
+            @click="sendIdToParent(product)"
             >В корзину</b-button
           >
         </div>
@@ -29,6 +38,7 @@
 </template>
 
 <script>
+import { HTTP } from "../axios/plagins";
 export default {
   name: "ProductCard",
   props: {
@@ -41,7 +51,16 @@ export default {
   },
   data: () => ({
     truncateSortProduct: [],
+    startProduct: [],
+    informationElement: [],
   }),
+  created() {
+    HTTP.get("https://fakestoreapi.com/products")
+      .then((response) => (this.startProduct = response.data))
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   updated() {
     this.truncateSortProduct = this.filtredProducts;
     this.truncateSortProduct.map((el) => {
@@ -52,7 +71,19 @@ export default {
   },
   methods: {
     sendIdToParent(product) {
-        this.$emit("sendId", product);
+      this.$emit("sendId", product);
+    },
+    detailedInformation(id) {
+      this.informationElement = [];
+      this.startProduct.map((el) => {
+        return el.id === id ? this.informationElement.push(el) : [];
+      });
+      console.log(this.informationElement);
+    },
+  },
+  computed: {
+    detailedInformationItem() {
+      return this.informationElement;
     },
   },
 };
