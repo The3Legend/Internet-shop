@@ -78,7 +78,6 @@ export default {
       this.startProduct.map((el) => {
         return el.id === id ? this.informationElement.push(el) : [];
       });
-      console.log(this.informationElement);
     },
   },
   computed: {

@@ -108,7 +108,7 @@ export default {
     },
     showClickId(card) {
       this.ItemInCart.push(card);
-      console.log(this.filtredProducts)
+      console.log(this.filtredProducts);
     },
     productRemove(index) {
       this.ItemInCart.splice(index, 1);
